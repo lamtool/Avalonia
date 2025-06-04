@@ -1,0 +1,57 @@
+﻿<Application x:Class="WPFUI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WPFUI"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <FontFamily x:Key="QuicksandFont">pack://application:,,,/Fonts/Quicksand.ttf#Quicksand</FontFamily>
+
+            <!-- Style toàn cục cho TextBlock -->
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"/>
+            </Style>
+
+            <!-- Style toàn cục cho Button -->
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"/>
+            </Style>
+
+            <!-- Style toàn cục cho MenuItem -->
+            <Style TargetType="MenuItem">
+                <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"/>
+            </Style>
+
+            <!-- Style toàn cục cho Label -->
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"/>
+            </Style>
+            
+            <Style TargetType="ComboBox">
+                <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"/>
+            </Style>
+            
+            <Style TargetType="ComboBoxItem">
+                <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"/>
+            </Style>
+            
+            <!-- Nếu bạn sử dụng Material Design, ghi đè font của theme -->
+            <Style TargetType="TextBlock" x:Key="MaterialDesignBody1TextBlock" BasedOn="{StaticResource MaterialDesignBody1TextBlock}">
+                <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"/>
+            </Style>
+
+            <Style TargetType="ComboBox" x:Key="MaterialDesignBody1ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
+                <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"/>
+            </Style>
+
+
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
+               
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+    
+</Application>

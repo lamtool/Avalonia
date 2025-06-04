@@ -1,0 +1,264 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:AvaloniaUI"
+             xmlns:converters="clr-namespace:AvaloniaUI.Converters"
+			 xmlns:viewModels="clr-namespace:AvaloniaUI.ViewModels"
+             x:Class="AvaloniaUI.Views.ucAccount"
+			 x:DataType="viewModels:AccountViewModel"
+             Background="#F3F4F6"
+             Padding="20">
+
+	<UserControl.Resources>
+		<!-- Brushes -->
+		<SolidColorBrush x:Key="CustomBg" Color="#F3F4F6"/>
+		<SolidColorBrush x:Key="CardBg" Color="#FFFFFF"/>
+		<SolidColorBrush x:Key="PrimaryBlue" Color="#3B82F6"/>
+		<SolidColorBrush x:Key="DarkText" Color="#1F2937"/>
+		<SolidColorBrush x:Key="LightText" Color="#6B7280"/>
+		<SolidColorBrush x:Key="BorderColor" Color="#E5E7EB"/>
+		<SolidColorBrush x:Key="GreenAccent" Color="#10B981"/>
+		<SolidColorBrush x:Key="RedAccent" Color="#EF4444"/>
+		<SolidColorBrush x:Key="GrayText" Color="#374151"/>
+		<SolidColorBrush x:Key="LightGrayText" Color="#9CA3AF"/>
+		<SolidColorBrush x:Key="DodgerBlue" Color="#1E90FF"/>
+		<converters:WarnStateConverter x:Key="WarnStateConverter"/>
+		<converters:HeightConverter x:Key="HeightConverter"/>
+		<ItemsPanelTemplate x:Key="HorizontalItemsPanel">
+			<StackPanel Orientation="Horizontal"/>
+		</ItemsPanelTemplate>
+
+		<!-- Button Style (simplified for Avalonia) -->
+		<Style x:Key="ActionButtonStyle" Selector="Button">
+			<Setter Property="Background" Value="{StaticResource PrimaryBlue}"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Padding" Value="8,4"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="CornerRadius" Value="4"/>
+		</Style>
+
+		<!-- StatCardStyle -->
+		<Style x:Key="StatCardStyle" Selector="Border">
+			<Setter Property="Background" Value="{StaticResource CardBg}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="CornerRadius" Value="12"/>
+			<Setter Property="Padding" Value="16"/>
+		</Style>
+	</UserControl.Resources>
+
+	<DockPanel LastChildFill="True">
+		<!-- Stats Cards -->
+		<UniformGrid DockPanel.Dock="Top" Columns="4" Margin="0,0,0,24" HorizontalAlignment="Stretch">
+			<!-- Card 1: Server -->
+			<Border Classes="StatCardStyle" HorizontalAlignment="Stretch" Height="90" Margin="0,0,10,0">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<StackPanel>
+						<TextBlock Text="Server" FontSize="12" FontWeight="Medium" Foreground="Gray"/>
+						<StackPanel Orientation="Horizontal" Margin="0,4,0,0" VerticalAlignment="Center">
+							<Ellipse Width="8" Height="8" Fill="Green" VerticalAlignment="Center" Margin="0,0,6,0"/>
+							<ComboBox Width="150" Height="22" FontWeight="SemiBold">
+								<ComboBoxItem Content="Traodoisub.com"/>
+								<ComboBoxItem Content="Tuongtaccheo.net"/>
+								<ComboBoxItem Content="Auto.golike.net"/>
+							</ComboBox>
+						</StackPanel>
+					</StackPanel>
+					<Border Grid.Column="1" Background="White" CornerRadius="8" Margin="12,0,0,0" VerticalAlignment="Center" Width="30" Height="40">
+						<Image Source="avares://AvaloniaUI/Assets/iconServer.png" Stretch="Uniform" Width="32"/>
+					</Border>
+				</Grid>
+			</Border>
+
+			<!-- Card 2: Account Group -->
+			<Border Classes="StatCardStyle" HorizontalAlignment="Stretch" Height="90" Margin="10,0,10,0">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<StackPanel>
+						<TextBlock Text="Nhóm tài khoản" FontSize="12" FontWeight="Medium" Foreground="Gray"/>
+						<StackPanel Orientation="Horizontal" Margin="0,4,0,0" VerticalAlignment="Center">
+							<ComboBox Width="150" Height="22" Name="cbb_Folder" FontWeight="SemiBold">
+								<ComboBoxItem Content="Tất cả các nhóm"/>
+								<ComboBoxItem Content="Nhóm Thường"/>
+								<ComboBoxItem Content="Nhóm VIP"/>
+							</ComboBox>
+							<Button Height="32" Width="25" ToolTip.Tip="Thêm nhóm" Command="{Binding AddFolderCommand}">
+								<TextBlock Text="+" Foreground="DodgerBlue" FontSize="16" HorizontalAlignment="Center"/>
+							</Button>
+						</StackPanel>
+					</StackPanel>
+					<Border Grid.Column="1" Background="White" CornerRadius="8" Margin="12,0,0,0" VerticalAlignment="Center" Width="30" Height="40">
+						<Image Source="avares://AvaloniaUI/Assets/iconGroup.png" Stretch="Uniform" Width="32"/>
+					</Border>
+				</Grid>
+			</Border>
+
+			<!-- Card 3: CPU and RAM -->
+			<Border Classes="StatCardStyle" HorizontalAlignment="Stretch" Height="90" Padding="0,1,1,0" Margin="10,0,10,0">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<StackPanel Background="Transparent" VerticalAlignment="Center" Margin="10,0,106,0">
+						<!-- CPU -->
+						<StackPanel Margin="0,0,0,8">
+							<TextBlock Text="CPU" FontSize="10" Foreground="Gray" Margin="0,0,0,4"/>
+							<ProgressBar Name="CpuProgressBar" Height="6" Maximum="100" Value="45" Background="#E5E7EB" Foreground="#2563EB"/>
+							<TextBlock Name="CpuText" Text="45%" FontSize="9" Foreground="Gray" HorizontalAlignment="Right" Margin="0,4,0,0"/>
+						</StackPanel>
+						<!-- RAM -->
+						<StackPanel>
+							<TextBlock Text="RAM" FontSize="10" Foreground="Gray" Margin="0,0,0,4"/>
+							<ProgressBar Name="RamProgressBar" Height="6" Maximum="100" Value="65" Background="#E5E7EB" Foreground="#16A34A"/>
+							<TextBlock Name="RamText" Text="4.2/6.2 GB" FontSize="9" Foreground="Gray" HorizontalAlignment="Right" Margin="0,4,0,0"/>
+						</StackPanel>
+					</StackPanel>
+					<Border Grid.Column="1" Background="White" CornerRadius="8" Margin="12,0,12,0" VerticalAlignment="Center" Width="30" Height="40">
+						<Image Source="avares://AvaloniaUI/Assets/iconCpu.png" Stretch="Uniform" Width="32"/>
+					</Border>
+				</Grid>
+			</Border>
+
+			<!-- Card 4: Jobs Running -->
+			<Border Classes="StatCardStyle" HorizontalAlignment="Stretch" Height="90" Margin="10,0,0,0">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<StackPanel Margin="10,0,10,6">
+						<TextBlock Text="Jobs đang chạy" FontSize="12" FontWeight="Medium" Foreground="Gray" Padding="0" Height="14" Margin="0,0,0,2"/>
+						<Grid Margin="0,-2,0,0" Height="46">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<ListBox ItemsSource="{Binding RunningJobs}" Height="26" Width="342" Background="Transparent" BorderThickness="0" FontSize="8">
+								<!-- Use DataTemplates for items as needed -->
+							</ListBox>
+							<Button Grid.Column="1" ToolTip.Tip="Cài đặt job cần chạy" Margin="10,5,10,0" FontSize="8" VerticalAlignment="Top" Height="31" Width="31">
+								<TextBlock Text="⚙" Foreground="DodgerBlue" FontSize="20" HorizontalAlignment="Center"/>
+							</Button>
+						</Grid>
+					</StackPanel>
+					<Border Grid.Column="1" Background="White" CornerRadius="8" Margin="12,0,12,0" VerticalAlignment="Center" Width="30" Height="40">
+						<Image Source="avares://AvaloniaUI/Assets/iconLisst.png" Stretch="Uniform" Width="32"/>
+					</Border>
+				</Grid>
+			</Border>
+		</UniformGrid>
+
+		<!-- Control Panel -->
+		<Border DockPanel.Dock="Top" Background="{StaticResource CardBg}" BorderBrush="{StaticResource BorderColor}"
+				BorderThickness="1" CornerRadius="12" Margin="0,0,0,24" Padding="16" HorizontalAlignment="Stretch" Height="82">
+			<Grid Margin="0,0,0,-7">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="Điều khiển" FontSize="13" Foreground="#111827" Margin="0,0,16,0" VerticalAlignment="Center"/>
+					<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+						<TextBlock Text="Luồng:" FontSize="12" Foreground="{StaticResource GrayText}" VerticalAlignment="Center"/>
+						<NumericUpDown Value="5" Width="30" HorizontalAlignment="Center" Maximum="100" Minimum="1"/>
+					</StackPanel>
+				</StackPanel>
+				<StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
+					<Button Background="{StaticResource GreenAccent}" Foreground="White" Classes="RoundedFlatButton"
+							Height="35" Width="90" Padding="8,4" IsEnabled="{Binding ControlsEnabled}" Margin="0,0,8,0">
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0">
+							<TextBlock Text="▶" Width="24" Height="24" Margin="0,0,8,0" VerticalAlignment="Center"/>
+							<TextBlock Text="Chạy" VerticalAlignment="Center" FontSize="13.5" FontWeight="SemiBold"/>
+						</StackPanel>
+					</Button>
+					<Button Background="{StaticResource RedAccent}" Foreground="White" Classes="RoundedFlatButton"
+							Height="35" Width="90" Padding="8,4" ToolTip.Tip="Dừng" IsEnabled="{Binding ControlsEnabled}" Margin="0,0,8,0">
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0">
+							<TextBlock Text="■" Width="24" Height="24" Margin="0,0,8,0" VerticalAlignment="Center"/>
+							<TextBlock Text="Dừng" VerticalAlignment="Center" FontSize="13.5" FontWeight="SemiBold"/>
+						</StackPanel>
+					</Button>
+					<Button Background="{StaticResource DodgerBlue}" Name="btnLoadAccount" Foreground="White" Classes="RoundedFlatButton"
+							Height="35" Width="110" Padding="8,0" ToolTip.Tip="Làm mới" Command="{Binding ReloadCommand}" IsEnabled="{Binding ControlsEnabled}">
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0">
+							<TextBlock Text="⟳" Width="24" Height="24" Margin="0,0,8,0"/>
+							<TextBlock Text="Làm mới" VerticalAlignment="Center" FontSize="13.5" FontWeight="SemiBold"/>
+						</StackPanel>
+					</Button>
+				</StackPanel>
+			</Grid>
+		</Border>
+
+		<!-- Account Table -->
+		<Border DockPanel.Dock="Top" Background="{StaticResource CardBg}" BorderBrush="{StaticResource BorderColor}" BorderThickness="1" CornerRadius="12">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<!-- Header and Search -->
+				<Grid Grid.Row="0" Margin="24">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+
+					<StackPanel Orientation="Vertical" Grid.Column="0">
+						<TextBlock Text="Danh sách tài khoản" FontSize="16" FontWeight="SemiBold" Foreground="#111827" VerticalAlignment="Center"/>
+						<StackPanel Orientation="Horizontal" Margin="0,12,0,0" VerticalAlignment="Center">
+							<!-- ... (Account summary ellipses and text, similar to WPF) ... -->
+						</StackPanel>
+					</StackPanel>
+
+					<StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+						<TextBox MinWidth="200" Margin="8,0,0,0" VerticalAlignment="Center"
+								 Watermark="Tìm kiếm tài khoản..." BorderThickness="0"
+								 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+						<Button Background="{StaticResource DodgerBlue}" Command="{Binding AddAccountCommand}" Foreground="White" Classes="RoundedFlatButton"
+								Height="35" Width="160" Padding="8,4" Margin="16,0,0,0" IsEnabled="{Binding ControlsEnabled}">
+							<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0">
+								<TextBlock Text="+" Width="24" Height="24" Margin="0,0,8,0" VerticalAlignment="Center"/>
+								<TextBlock Text="Thêm tài khoản" VerticalAlignment="Center" FontSize="13" FontWeight="SemiBold"/>
+							</StackPanel>
+						</Button>
+					</StackPanel>
+				</Grid>
+
+				<!-- ListView (DataGrid) -->
+				<DataGrid Grid.Row="1" Name="DataGridAccount" ItemsSource="{Binding Accounts}" Margin="5"
+						  AutoGenerateColumns="False" SelectionMode="Extended">
+					<!-- Define DataGridColumns for each property as in WPF -->
+					<DataGrid.Columns>
+						<DataGridCheckBoxColumn Header="Chọn" Binding="{Binding IsSelected}"/>
+						<DataGridTextColumn Header="Uid" Binding="{Binding AccountName}"/>
+						<DataGridTextColumn Header="Tên" Binding="{Binding Name}"/>
+						<DataGridTextColumn Header="Mật khẩu" Binding="{Binding Password}"/>
+						<DataGridTextColumn Header="2FA" Binding="{Binding TwoFA}"/>
+						<DataGridTextColumn Header="Cookie" Binding="{Binding Cookie}"/>
+						<DataGridTextColumn Header="Token" Binding="{Binding Token}"/>
+						<DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+						<DataGridTextColumn Header="Mật khẩu email" Binding="{Binding EmailPassword}"/>
+						<DataGridTextColumn Header="Email khôi phục" Binding="{Binding RecoveryEmail}"/>
+						<DataGridTextColumn Header="Nhóm" Binding="{Binding Group}"/>
+						<DataGridTextColumn Header="Tình trạng" Binding="{Binding State}"/>
+						<DataGridTextColumn Header="Hoạt động gần nhất" Binding="{Binding LastActivity}"/>
+						<DataGridTextColumn Header="Kết quả" Binding="{Binding Result}"/>
+						<DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" MinWidth="200" Width="Auto"/>
+					</DataGrid.Columns>
+				</DataGrid>
+
+				<TextBlock Grid.Row="2" Padding="20,5,5,5" Text="Đã chọn 0-100 tài khoản" FontSize="12" FontWeight="SemiBold"
+						   Foreground="{StaticResource GrayText}" VerticalAlignment="Bottom"/>
+			</Grid>
+		</Border>
+	</DockPanel>
+</UserControl>

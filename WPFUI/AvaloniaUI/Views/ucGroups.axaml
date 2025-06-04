@@ -1,0 +1,189 @@
+<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:AvaloniaUI.Views"
+    xmlns:converters="clr-namespace:AvaloniaUI.Converters"
+    x:Class="AvaloniaUI.Views.ucGroups"
+	x:DataType="local:ucGroups"
+    Background="#F3F4F6"
+    Padding="20">
+
+	<UserControl.Resources>
+		<!-- Brushes -->
+		<SolidColorBrush x:Key="CustomBg" Color="#F3F4F6"/>
+		<SolidColorBrush x:Key="CardBg" Color="#FFFFFF"/>
+		<SolidColorBrush x:Key="PrimaryBlue" Color="#3B82F6"/>
+		<SolidColorBrush x:Key="DarkText" Color="#1F2937"/>
+		<SolidColorBrush x:Key="LightText" Color="#6B7280"/>
+		<SolidColorBrush x:Key="BorderColor" Color="#E5E7EB"/>
+		<SolidColorBrush x:Key="GreenAccent" Color="#10B981"/>
+		<SolidColorBrush x:Key="RedAccent" Color="#EF4444"/>
+		<SolidColorBrush x:Key="GrayText" Color="#374151"/>
+		<SolidColorBrush x:Key="LightGrayText" Color="#9CA3AF"/>
+		<SolidColorBrush x:Key="DodgerBlue" Color="#1E90FF"/>
+		<converters:WarnStateConverter x:Key="WarnStateConverter"/>
+		<converters:HeightConverter x:Key="HeightConverter"/>
+		<ItemsPanelTemplate x:Key="HorizontalItemsPanel">
+			<StackPanel Orientation="Horizontal"/>
+		</ItemsPanelTemplate>
+
+		<!-- Button Style -->
+		<Style x:Key="ActionButtonStyle" Selector="Button">
+			<Setter Property="Background" Value="{StaticResource PrimaryBlue}"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Padding" Value="12,6"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="FontSize" Value="13"/>
+			<Setter Property="CornerRadius" Value="6"/>
+		</Style>
+
+		<!-- StatCardStyle -->
+		<Style x:Key="StatCardStyle" Selector="Border">
+			<Setter Property="Background" Value="{StaticResource CardBg}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="CornerRadius" Value="12"/>
+			<Setter Property="Padding" Value="16"/>
+		</Style>
+
+		<!-- CustomComboBoxStyle -->
+		<Style x:Key="CustomComboBoxStyle" Selector="ComboBox">
+			<Setter Property="Background" Value="White"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="6,2"/>
+			<Setter Property="FontSize" Value="13"/>
+			<Setter Property="CornerRadius" Value="6"/>
+		</Style>
+
+		<Style x:Key="RoundedFlatButton" Selector="Button">
+			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="Padding" Value="10,6"/>
+		</Style>
+	</UserControl.Resources>
+
+	<DockPanel LastChildFill="True">
+		<!-- Control Panel -->
+		<Border DockPanel.Dock="Top" Background="{StaticResource CardBg}" BorderBrush="{StaticResource BorderColor}"
+                BorderThickness="1" CornerRadius="12" Margin="0,0,0,16" Padding="16" Height="80">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Orientation="Horizontal" Margin="0,0,8,0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+					<Button x:Name="btnLoadAccount" Background="{StaticResource DodgerBlue}" Foreground="White" Classes="RoundedFlatButton"
+                            Height="40" Width="140" Padding="10,6" Margin="0,0,8,0">
+						<!--IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType=Window}}">-->
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+							<!-- Replace with Avalonia icon or SVG as needed -->
+							<!--<Icon Source="avares://YourAssembly/Assets/plus.svg" Width="20" Height="20" Margin="0,0,6,0"/>-->
+							<TextBlock Text="Tạo nhóm mới" VerticalAlignment="Center" FontSize="13" FontWeight="SemiBold"/>
+						</StackPanel>
+					</Button>
+					<Button Background="#E5E7EB" Foreground="#6B7280"  Classes="RoundedFlatButton"
+                            Height="40" Width="140" Padding="10,6" Margin="0,0,8,0">
+						<!--IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType=Window}}"-->
+						
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+							<!--<Icon Source="avares://YourAssembly/Assets/import.svg" Width="20" Height="20" Margin="0,0,6,0"/>-->
+							<TextBlock Text="Nhập từ file" VerticalAlignment="Center" FontSize="13" FontWeight="SemiBold"/>
+						</StackPanel>
+					</Button>
+					<Button Background="#E5E7EB" Foreground="#6B7280"  Classes="RoundedFlatButton"
+                            Height="40" Width="140" Padding="10,6" Margin="0,0,8,0">
+						<!--IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType=Window}}">-->
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+							<!--<Icon Source="avares://YourAssembly/Assets/export.svg" Width="20" Height="20" Margin="0,0,6,0"/>-->
+							<TextBlock Text="Xuất file" VerticalAlignment="Center" FontSize="13" FontWeight="SemiBold"/>
+						</StackPanel>
+					</Button>
+				</StackPanel>
+				<StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,8,0">
+					<TextBlock Text="Sắp xếp theo:" FontSize="13" FontWeight="Medium" Foreground="Gray" VerticalAlignment="Center" Margin="0,0,8,0"/>
+					<ComboBox x:Name="SortComboBox"
+                              Width="170" Height="25" VerticalAlignment="Center"
+                              FontSize="14"
+                              Classes="CustomComboBoxStyle">
+						<ComboBoxItem Content="Tên (A-Z)"/>
+						<ComboBoxItem Content="Số lượng tài khoản"/>
+						<ComboBoxItem Content="Ngày tạo"/>
+					</ComboBox>
+				</StackPanel>
+			</Grid>
+		</Border>
+
+		<!-- Account Table -->
+		<Border Background="Transparent" BorderBrush="Transparent">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+					<ItemsControl Grid.Row="0" x:Name="ItemControl_listGroup" ItemsSource="{Binding Groups}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<WrapPanel Orientation="Horizontal" Margin="0,0,0,8"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+						<ItemsControl.ItemTemplate>
+							<DataTemplate x:DataType="local:Group">
+								<Border Width="240" Height="170" Margin="8" Background="#FFFFFF" CornerRadius="10" BorderBrush="#E5E7EB" BorderThickness="1">
+									<StackPanel Margin="8">
+										<Border BorderBrush="#E5E7EB" BorderThickness="0,0,0,1" Padding="8,8,8,12">
+											<Grid>
+												<StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+													<TextBlock Text="{Binding Name}" FontSize="16" FontWeight="SemiBold" Foreground="#1F2937"/>
+													<TextBlock Text="{Binding CreationDate, StringFormat='Tạo ngày: {0:dd/MM/yyyy}'}" FontSize="12" Foreground="#6B7280" Margin="0,4,0,0"/>
+												</StackPanel>
+												<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+													<Button Padding="3" Background="Transparent" BorderThickness="0" Cursor="Hand">
+														<!--<Icon Source="avares://YourAssembly/Assets/folder-edit.svg" Width="16" Height="16" Margin="0,0,8,0" Foreground="Blue"/>-->
+													</Button>
+													<Button Padding="3" Background="Transparent" BorderThickness="0" Cursor="Hand">
+														<!--<Icon Source="avares://YourAssembly/Assets/delete.svg" Width="16" Height="16" Margin="0,0,8,0" Foreground="Red"/>-->
+													</Button>
+												</StackPanel>
+											</Grid>
+										</Border>
+										<StackPanel Margin="8,4,8,8" VerticalAlignment="Stretch">
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto"/>
+													<ColumnDefinition Width="*"/>
+												</Grid.ColumnDefinitions>
+												<TextBlock Text="Số tài khoản:" FontSize="12" Foreground="#6B7280" Margin="0,5,4,0"/>
+												<TextBlock Grid.Column="1" Margin="0,5,4,0" Text="{Binding AccountCount}" FontSize="12" Foreground="#1F2937" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="SemiBold"/>
+											</Grid>
+											<Grid Margin="0,8,0,0">
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto"/>
+													<ColumnDefinition Width="*"/>
+												</Grid.ColumnDefinitions>
+												<TextBlock Text="Trạng thái: " FontSize="12" Foreground="#6B7280"/>
+												<Border Grid.Column="1" Background="#DCFCE7" CornerRadius="6" Padding="4,2" HorizontalAlignment="Right" >
+													<TextBlock Text="{Binding Status}" FontSize="10" Foreground="#10B981" FontWeight="SemiBold"/>
+												</Border>
+											</Grid>
+											<StackPanel VerticalAlignment="Bottom" Margin="0,12,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+												<Button Background="{StaticResource DodgerBlue}" Foreground="White" Classes="RoundedFlatButton"
+                        Height="32" Width="140" Padding="8,4">
+													<!--IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType=Window}}">-->
+													<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+														<!--<Icon Source="avares://YourAssembly/Assets/eye.svg" Width="16" Height="16" Margin="0,0,6,0"/>-->
+														<TextBlock Text="Xem chi tiết" VerticalAlignment="Center" FontSize="12" FontWeight="SemiBold"/>
+													</StackPanel>
+												</Button>
+											</StackPanel>
+										</StackPanel>
+									</StackPanel>
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</Grid>
+		</Border>
+	</DockPanel>
+</UserControl>

@@ -1,0 +1,133 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="AvaloniaUI.Views.fAddAccount"
+        Title="Add Account"
+        Width="1300"
+        Height="700"
+        Background="#F3F4F6"
+        FontFamily="Quicksand"
+        WindowStartupLocation="CenterScreen">
+
+	<Window.Resources>
+		<!-- Brushes -->
+		<SolidColorBrush x:Key="CustomBg" Color="#F3F4F6"/>
+		<SolidColorBrush x:Key="CardBg" Color="#FFFFFF"/>
+		<SolidColorBrush x:Key="PrimaryBlue" Color="#3B82F6"/>
+		<SolidColorBrush x:Key="DarkText" Color="#1F2937"/>
+		<SolidColorBrush x:Key="LightText" Color="#6B7280"/>
+		<SolidColorBrush x:Key="BorderColor" Color="#E5E7EB"/>
+		<SolidColorBrush x:Key="GreenAccent" Color="#10B981"/>
+		<SolidColorBrush x:Key="RedAccent" Color="#EF4444"/>
+	</Window.Resources>
+	<Window.Styles>
+
+		<!-- Button Style -->
+		<Style Selector="Button.action">
+			<Setter Property="Background" Value="#3B82F6"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Padding" Value="8,4"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="CornerRadius" Value="10"/>
+		</Style>
+	</Window.Styles>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<!-- Header -->
+		<Border Grid.Row="0" Background="#FFFFFF" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="10" Margin="10">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Name="lbTile" Text="Add Account" FontSize="16" FontWeight="SemiBold" Foreground="#374151"
+                           VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"
+						   Tapped="TextBlock_Tapped"/>
+			</Grid>
+		</Border>
+
+		<!-- Content -->
+		<Border Grid.Row="1" Background="#FFFFFF" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="10" Margin="10" Padding="10">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<!-- TextBox -->
+				<Border Grid.Row="0" Background="#FFFFFF" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="4" Margin="0,0,0,10" Padding="5">
+					<TextBlock Text="Định dạng:" FontSize="10" VerticalAlignment="Center"/>
+				</Border>
+				<!-- Dynamic ComboBoxes -->
+				<Border Grid.Row="1" Background="#FFFFFF" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="4" Margin="0,0,0,10" Padding="5">
+					<StackPanel Name="flowLayoutPanel2" Height="40" Orientation="Horizontal"/>
+				</Border>
+				<!-- Additional Content (Status Indicators and RichTextBox) -->
+				<Border Grid.Row="2" Background="#FFFFFF" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="4" Padding="5">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<!-- Status Indicators -->
+						<StackPanel Orientation="Horizontal" Margin="0,12,0,10" VerticalAlignment="Center">
+							<!-- Tổng -->
+							<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,24,0">
+								<Ellipse Width="8" Height="8" Fill="#0000FF" VerticalAlignment="Center" Margin="0,0,6,0"/>
+								<TextBlock Text="Tổng:" Foreground="#6B7280" VerticalAlignment="Center"/>
+								<TextBlock Name="lbAccoutTotale" Foreground="#0000FF" Text="0" FontWeight="SemiBold" Margin="4,0,0,0" VerticalAlignment="Center"/>
+							</StackPanel>
+							<!-- Hoạt động -->
+							<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,24,0">
+								<Ellipse Width="8" Height="8" Fill="#22C55E" VerticalAlignment="Center" Margin="0,0,6,0"/>
+								<TextBlock Text="Hoạt động:" Foreground="#6B7280" VerticalAlignment="Center"/>
+								<TextBlock Name="lbAccountLive" Foreground="#22C55E" Text="0" FontWeight="SemiBold" Margin="4,0,0,0" VerticalAlignment="Center"/>
+							</StackPanel>
+							<!-- Lỗi -->
+							<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,24,0">
+								<Ellipse Width="8" Height="8" Fill="#EF4444" VerticalAlignment="Center" Margin="0,0,6,0"/>
+								<TextBlock Text="Lỗi:" Foreground="#6B7280" VerticalAlignment="Center"/>
+								<TextBlock Name="lbAccountDie" Foreground="#EF4444" Text="0" FontWeight="SemiBold" Margin="4,0,0,0" VerticalAlignment="Center"/>
+							</StackPanel>
+							<!-- Đang chờ -->
+							<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+								<Ellipse Width="8" Height="8" Fill="#EAB308" VerticalAlignment="Center" Margin="0,0,6,0"/>
+								<TextBlock Text="Đang chờ:" Foreground="#6B7280" VerticalAlignment="Center"/>
+								<TextBlock Name="lbAccountWarn" Text="0" Foreground="#EAB308" FontWeight="SemiBold" Margin="4,0,0,0" VerticalAlignment="Center"/>
+							</StackPanel>
+						</StackPanel>
+						<!-- RichTextBox for Additional Info -->
+						<Border Grid.Row="1" Background="#FFFFFF" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="4" Margin="0,0,0,5" Padding="5">
+							<TextBox Name="rtbAdditionalInfo"
+                                     AcceptsReturn="True"
+                                     AcceptsTab="True"
+                                     VerticalAlignment="Stretch"
+                                     Watermark="Enter additional information here..."
+                                     MinHeight="100"
+                                     Background="White"
+                                     BorderBrush="LightGray"
+                                     BorderThickness="1"
+                                     Foreground="Black"
+                                     FontSize="12"
+                                     Padding="5"/>
+						</Border>
+					</Grid>
+				</Border>
+			</Grid>
+		</Border>
+
+		<!-- Footer -->
+		<Border Grid.Row="2" Background="#FFFFFF" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="10" Margin="10,0,10,10" Padding="10" Height="50" VerticalAlignment="Bottom">
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<Button Name="btnExit" Content="Exit" Classes="action" Background="#EF4444"
+                        Margin="0,0,10,0" Width="100" Click="btnExit_Click"/>
+				<Button Name="btnAdd" Content="Add" Classes="action" Background="#10B981"
+                        Width="100" Click="btnAdd_Click"/>
+			</StackPanel>
+		</Border>
+	</Grid>
+</Window>

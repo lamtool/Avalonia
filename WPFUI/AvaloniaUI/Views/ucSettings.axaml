@@ -1,0 +1,349 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:materialDesign="using:Material.Styles.Controls"
+             xmlns:materialIcon="using:Material.Icons.Avalonia"
+             xmlns:local="clr-namespace:AvaloniaUI.Views"
+             xmlns:models="clr-namespace:AvaloniaUI.Models"
+             mc:Ignorable="d"
+             x:Class="AvaloniaUI.Views.ucSettings"
+             FontFamily="{StaticResource QuicksandFont}"
+             Background="#F3F4F6"
+             Padding="20"
+             x:DataType="local:ucSettings">
+
+	<Design.DataContext>
+		<x:Static Member="Design.DataContext" d:DataContext="{x:Type local:ucSettings}"/>
+	</Design.DataContext>
+
+	<UserControl.Styles>
+		<Style Selector="Button.primary">
+			<Setter Property="Padding" Value="10,5"/>
+			<Setter Property="Margin" Value="5,0"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="BorderBrush" Value="#D1D5DB"/>
+			<Setter Property="Background" Value="#3B82F6"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Template">
+				<ControlTemplate TargetType="Button">
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="5">
+						<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+			<Style Selector="^:pointerover">
+				<Setter Property="Background" Value="#1E40AF"/>
+			</Style>
+		</Style>
+
+		<Style Selector="Button.secondary">
+			<Setter Property="Padding" Value="10,5"/>
+			<Setter Property="Margin" Value="5,0"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="BorderBrush" Value="#D1D5DB"/>
+			<Setter Property="Background" Value="#F3F4F6"/>
+			<Setter Property="Foreground" Value="#6B7280"/>
+			<Setter Property="Template">
+				<ControlTemplate TargetType="Button">
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="5">
+						<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+			<Style Selector="^:pointerover">
+				<Setter Property="Background" Value="#E5E7EB"/>
+			</Style>
+		</Style>
+
+		<Style Selector="Button.danger">
+			<Setter Property="Padding" Value="10,5"/>
+			<Setter Property="Margin" Value="5,0"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="BorderBrush" Value="#B91C1C"/>
+			<Setter Property="Background" Value="#B91C1C"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Template">
+				<ControlTemplate TargetType="Button">
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="5">
+						<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+			<Style Selector="^:pointerover">
+				<Setter Property="Background" Value="#991B1B"/>
+			</Style>
+		</Style>
+
+		<Style Selector="Border.card">
+			<Setter Property="Background" Value="White"/>
+			<Setter Property="BorderBrush" Value="#D1D5DB"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="CornerRadius" Value="12"/>
+			<Setter Property="Margin" Value="0,0,0,20"/>
+			<Setter Property="Padding" Value="15"/>
+			<Setter Property="BoxShadow" Value="0 2 4 0 #33000000"/>
+		</Style>
+	</UserControl.Styles>
+
+	<Grid ColumnDefinitions="*,Auto">
+		<ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="0,0,20,0">
+			<StackPanel>
+				<Border Classes="card" Height="300">
+					<StackPanel Margin="0,-6,0,0">
+						<TabControl x:Name="GeneralSettingsTabs"
+                                    TabStripPlacement="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Margin="0,5,0,0"
+                                    SelectedIndex="0">
+							<TabControl.Template>
+								<ControlTemplate TargetType="TabControl">
+									<Grid RowDefinitions="Auto,*">
+										<TabStrip Grid.Row="0"
+												  HorizontalAlignment="Left"
+												  ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Items}"
+												  SelectedItem="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SelectedItem}"/>
+
+										<ContentPresenter Grid.Row="1"
+                                                          Content="{TemplateBinding SelectedContent}"/>
+									</Grid>
+								</ControlTemplate>
+							</TabControl.Template>
+
+							<TabItem>
+								<TabItem.Header>
+									<StackPanel Orientation="Horizontal">
+										<materialIcon:MaterialIcon Kind="Settings"
+                                                                 Width="16"
+                                                                 Height="16"
+                                                                 Margin="0,0,5,0"
+                                                                 VerticalAlignment="Center"/>
+										<TextBlock x:Name="CommonHeaderText"
+                                                   Text="Settings"
+                                                   FontFamily="{StaticResource QuicksandFont}"
+                                                   VerticalAlignment="Center">
+										</TextBlock>
+									</StackPanel>
+								</TabItem.Header>
+								<StackPanel Margin="10">
+									<TextBlock Text="General application settings"
+                                               FontSize="12"
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,10"/>
+									<CheckBox Content="Enable notifications"
+                                              FontSize="12"
+                                              Margin="0,5"/>
+									<CheckBox Content="Auto-login"
+                                              FontSize="12"
+                                              Margin="0,5"/>
+									<CheckBox Content="Run in background"
+                                              FontSize="12"
+                                              Margin="0,5"/>
+									<Button Classes="primary" Content="Save settings"
+                                            Margin="0,10,0,0"/>
+								</StackPanel>
+							</TabItem>
+
+							<TabItem>
+								<TabItem.Header>
+									<StackPanel Orientation="Horizontal">
+										<materialIcon:MaterialIcon Kind="GoogleChrome"
+                                                                 Width="16"
+                                                                 Height="16"
+                                                                 Margin="0,0,5,0"
+                                                                 VerticalAlignment="Center"/>
+										<TextBlock x:Name="ChromeHeaderText"
+                                                   Text="Chrome"
+                                                   FontFamily="{StaticResource QuicksandFont}"
+                                                   VerticalAlignment="Center">
+										</TextBlock>
+									</StackPanel>
+								</TabItem.Header>
+								<StackPanel Margin="10">
+									<TextBlock Text="Settings for Chrome browser"
+                                               FontFamily="{StaticResource QuicksandFont}"
+                                               FontSize="12"
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,10"/>
+									<CheckBox Content="Clear cache automatically"
+                                              FontFamily="{StaticResource QuicksandFont}"
+                                              FontSize="12"
+                                              Margin="0,5"/>
+									<CheckBox Content="Use proxy"
+                                              FontFamily="{StaticResource QuicksandFont}"
+                                              FontSize="12"
+                                              Margin="0,5"/>
+									<CheckBox Content="Block ads"
+                                              FontFamily="{StaticResource QuicksandFont}"
+                                              FontSize="12"
+                                              Margin="0,5"/>
+									<Button Classes="primary" Content="Save settings"
+                                            Margin="0,10,0,0"/>
+								</StackPanel>
+							</TabItem>
+
+							<TabItem>
+								<TabItem.Header>
+									<StackPanel Orientation="Horizontal">
+										<materialIcon:MaterialIcon Kind="Cellphone"
+                                                                 Width="16"
+                                                                 Height="16"
+                                                                 Margin="0,0,5,0"
+                                                                 VerticalAlignment="Center"/>
+										<TextBlock x:Name="PhoneHeaderText"
+                                                   Text="Phone"
+                                                   FontFamily="{StaticResource QuicksandFont}"
+                                                   VerticalAlignment="Center">
+										</TextBlock>
+									</StackPanel>
+								</TabItem.Header>
+								<StackPanel Margin="10">
+									<TextBlock Text="Settings for mobile device"
+                                               FontFamily="{StaticResource QuicksandFont}"
+                                               FontSize="12"
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,10"/>
+									<CheckBox Content="Sync over Wi-Fi"
+                                              FontFamily="{StaticResource QuicksandFont}"
+                                              FontSize="12"
+                                              Margin="0,5"/>
+									<CheckBox Content="Battery saver"
+                                              FontFamily="{StaticResource QuicksandFont}"
+                                              FontSize="12"
+                                              Margin="0,5"/>
+									<CheckBox Content="Push notifications"
+                                              FontFamily="{StaticResource QuicksandFont}"
+                                              FontSize="12"
+                                              Margin="0,5"/>
+									<Button Classes="primary" Content="Save settings"
+                                            Margin="0,10,0,0"/>
+								</StackPanel>
+							</TabItem>
+						</TabControl>
+					</StackPanel>
+				</Border>
+
+
+				<Border Classes="card">
+					<StackPanel>
+						<TextBlock FontSize="14" FontWeight="Bold" Text="Cấu hình Jobs" Margin="0,0,0,10"/>
+						<StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+							<TextBlock FontSize="12" Text="Chọn jobs cần chạy:" Width="170" VerticalAlignment="Center"/>
+							<ComboBox Width="200"
+                                      SelectedIndex="0"
+                                      ItemsSource="{Binding JobOptions}"
+                                      DisplayMemberBinding="{Binding Name}"
+                                      SelectedItem="{Binding SelectedJob}"
+                                      HorizontalContentAlignment="Center"
+                                      FontWeight="Bold"/>
+						</StackPanel>
+						<ListBox ItemsSource="{Binding JobTasks}" SelectionMode="Multiple">
+							<ListBox.ItemsPanel>
+								<ItemsPanelTemplate>
+									<WrapPanel Orientation="Horizontal"/>
+								</ItemsPanelTemplate>
+							</ListBox.ItemsPanel>
+							<ListBox.ItemTemplate>
+								<DataTemplate x:DataType="local:JobTask">
+									<Border BorderBrush="#D1D5DB" BorderThickness="1" CornerRadius="15" Padding="8,4" Margin="4">
+										<TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+									</Border>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</StackPanel>
+				</Border>
+
+				<Border Classes="card">
+					<StackPanel>
+						<TextBlock FontSize="14" FontWeight="Bold" Text="Tài khoản" Margin="0,0,0,10"/>
+						<StackPanel>
+							<TextBlock Text="Tên hiển thị" FontSize="12" Margin="0,0,0,5"/>
+							<TextBox
+                                     Watermark="Nhập tên hiển thị"
+                                     Text="{Binding DisplayName}"
+                                     Margin="0,5"/>
+							<TextBlock Text="Email" FontSize="12" Margin="0,10,0,5"/>
+							<TextBox
+                                     Watermark="Nhập Email"
+                                     Text="{Binding Email}"
+                                     Margin="0,5"/>
+							<TextBlock Text="Mật khẩu mới" FontSize="12" Margin="0,10,0,5"/>
+							<TextBox
+									 Watermark="Nhập mật khẩu mới"
+									 PasswordChar="*"
+									 Text="{Binding NewPassword}"
+									 Margin="0,5"
+									 TextInput="PasswordBox_PasswordChanged"/>
+							<Button Classes="primary" Content="Lưu thay đổi"
+                                    Margin="0,15,0,0"
+                                    Click="SaveAccountSettings_Click"/>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+		</ScrollViewer>
+
+		<StackPanel Grid.Column="1" HorizontalAlignment="Right" >
+			<Border Classes="card">
+				<StackPanel>
+					<TextBlock FontSize="14" FontWeight="Bold" Text="Thông tin hệ thống" Margin="0,0,0,10"/>
+					<Grid ColumnDefinitions="Auto,*">
+						<TextBlock Text="Phiên bản" FontSize="12"/>
+						<TextBlock Grid.Column="1" Text="{Binding Version}" FontWeight="Bold" HorizontalAlignment="Right"/>
+					</Grid>
+					<Grid ColumnDefinitions="Auto,*">
+						<TextBlock Text="Ngày cập nhật" FontSize="12"/>
+						<TextBlock Grid.Column="1" Text="{Binding UpdateDate, StringFormat='dd/MM/yyyy'}" FontWeight="Bold" HorizontalAlignment="Right"/>
+					</Grid>
+					<Grid ColumnDefinitions="Auto,*">
+						<TextBlock Text="Hạn dùng" FontSize="12"/>
+						<TextBlock Grid.Column="1" Text="{Binding ExpiryDate, StringFormat='dd/MM/yyyy'}" FontWeight="Bold" HorizontalAlignment="Right"/>
+					</Grid>
+					<Button Classes="primary" Content="Kiểm tra cập nhật"
+                            Margin="0,10,0,0"
+                            Click="CheckForUpdates_Click"/>
+				</StackPanel>
+			</Border>
+
+			<Border Classes="card">
+				<StackPanel>
+					<TextBlock FontSize="14" FontWeight="Bold" Text="Sao lưu Khôi phục" Margin="0,0,0,10"/>
+					<Button Classes="secondary" Content="Tạo bản sao lưu"
+                            Margin="0,5,0,0"
+                            Click="CreateBackup_Click"/>
+					<Button Classes="secondary" Content="Khôi phục từ file"
+                            Margin="0,5,0,0"
+                            Click="RestoreFromFile_Click"/>
+				</StackPanel>
+			</Border>
+
+			<Border Classes="card" Background="#FEF2F2">
+				<StackPanel>
+					<TextBlock FontSize="14" FontWeight="Bold" Foreground="#991B1B" Text="Khu vực nguy hiểm" Margin="0,0,0,10"/>
+					<TextBlock FontSize="12" Foreground="#C94865" Text="Các thao tác này không thể hoàn tác. Vui lòng thận trọng." TextWrapping="Wrap" Margin="0,0,0,10"/>
+					<Button Classes="secondary"
+                            Background="#FECAEA"
+                            Foreground="#B91C1C"
+                            BorderBrush="#B91C1C"
+                            Content="Xóa dữ liệu đăng nhập"
+                            Margin="0,5,0,0"
+                            Click="ClearLoginData_Click"/>
+					<Button Classes="danger" Content="Đặt lại toàn bộ hệ thống"
+                            Margin="0,5,0,0"
+                            Click="ResetSystem_Click"/>
+				</StackPanel>
+			</Border>
+		</StackPanel>
+	</Grid>
+</UserControl>

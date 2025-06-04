@@ -1,0 +1,279 @@
+﻿<Window x:Class="WPFUI.fAddAccount"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:WPFUI"
+        mc:Ignorable="d"
+        Background="#F3F4F6"
+        FontFamily="Quicksand"
+        Title="Add Account"
+        Width="1300"
+        Height="700"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <!-- Brushes -->
+        <SolidColorBrush x:Key="CustomBg" Color="#F3F4F6"/>
+        <SolidColorBrush x:Key="CardBg" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="PrimaryBlue" Color="#3B82F6"/>
+        <SolidColorBrush x:Key="GreenAccent" Color="#10B981"/>
+        <SolidColorBrush x:Key="RedAccent" Color="#EF4444"/>
+        <SolidColorBrush x:Key="GrayText" Color="#374151"/>
+
+        <!-- Button Style -->
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBlue}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#2563EB"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#B0BEC5"/>
+                                <Setter Property="Foreground" Value="#78909C"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ComboBox Style -->
+        <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="4,0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="4" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Padding="2">
+                                <ContentPresenter Name="ContentSite"
+                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                  Margin="6,0,24,0"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Left"
+                                                  IsHitTestVisible="False"/>
+                            </Border>
+                            <ToggleButton Name="DropDownToggle"
+                                          Focusable="False"
+                                          ClickMode="Press"
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Background="Transparent"
+                                          BorderThickness="0"
+                                          HorizontalAlignment="Right"
+                                          Width="20" Height="20"
+                                          Margin="0,0,4,0"
+                                          VerticalAlignment="Center">
+                                <Path x:Name="Arrow"
+                                      Fill="Black"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="M 0 0 L 4 4 L 8 0 Z"/>
+                            </ToggleButton>
+                            <Popup Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide"
+                                   StaysOpen="False">
+                                <Border Name="DropDownBorder"
+                                        SnapsToDevicePixels="True"
+                                        Background="White"
+                                        BorderThickness="1"
+                                        BorderBrush="LightGray"
+                                        CornerRadius="4"
+                                        MinWidth="{TemplateBinding ActualWidth}">
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True" Background="White">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#EEE"/>
+                                <Setter Property="Foreground" Value="#888"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PrimaryBlue}"/>
+                                <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource PrimaryBlue}"/>
+                            </Trigger>
+                            <Trigger Property="IsDropDownOpen" Value="True">
+                                <Setter TargetName="Arrow" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="180" CenterX="4" CenterY="2"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- RichTextBox Style -->
+        <Style x:Key="CustomRichTextBoxStyle" TargetType="RichTextBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="AcceptsTab" Value="True"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="MinHeight" Value="100"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RichTextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="4">
+                            <ScrollViewer x:Name="PART_ContentHost" Padding="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#EEE"/>
+                                <Setter Property="Foreground" Value="#888"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="{StaticResource PrimaryBlue}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Header -->
+            <RowDefinition Height="*"/>
+            <!-- Content -->
+            <RowDefinition Height="Auto"/>
+            <!-- Footer -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource CardBg}" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="10" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="lbTile" Text="Add Account" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource GrayText}" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" MouseDown="lbTile_MouseDown"/>
+            </Grid>
+        </Border>
+
+        <!-- Content -->
+        <Border Grid.Row="1" Background="{StaticResource CardBg}" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="10" Margin="10" Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Dynamic ComboBoxes -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- TextBox -->
+                    <RowDefinition Height="*"/>
+                    <!-- Additional Content -->
+                </Grid.RowDefinitions>
+                <!-- TextBox -->
+                <Border Grid.Row="0" Background="{StaticResource CardBg}" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="4" Margin="0,0,0,10" Padding="5">
+                    <TextBlock Text="Định dạng:" FontSize="10" VerticalAlignment="Center"/>
+                </Border>
+                <!-- Dynamic ComboBoxes -->
+                <Border Grid.Row="1" Background="{StaticResource CardBg}" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="4" Margin="0,0,0,10" Padding="5">
+                    <WrapPanel x:Name="flowLayoutPanel2" Height="40"  VerticalAlignment="Stretch" Orientation="Horizontal"/>
+                </Border>
+
+
+
+                <!-- Additional Content (Status Indicators and RichTextBox) -->
+                <Border Grid.Row="2" Background="{StaticResource CardBg}" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="4" Padding="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Status Indicators -->
+                            <RowDefinition Height="*"/>
+                            <!-- RichTextBox -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Status Indicators -->
+                        <StackPanel Orientation="Horizontal" Margin="0,12,0,10" VerticalAlignment="Center">
+                            <!-- Tổng -->
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,24,0">
+                                <Ellipse Width="8" Height="8" Fill="#0000FF" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBlock Text="Tổng:" Foreground="#6B7280" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lbAccoutTotale" Foreground="#0000FF" Text="0" FontWeight="SemiBold" Margin="4,0,0,0" VerticalAlignment="Center" Width="Auto"/>
+                            </StackPanel>
+
+                            <!-- Hoạt động -->
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,24,0">
+                                <Ellipse Width="8" Height="8" Fill="#22C55E" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBlock Text="Hoạt động:" Foreground="#6B7280" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lbAccountLive" Foreground="#22C55E" Text="0" FontWeight="SemiBold" Margin="4,0,0,0" VerticalAlignment="Center" Width="Auto"/>
+                            </StackPanel>
+
+                            <!-- Lỗi -->
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,24,0">
+                                <Ellipse Width="8" Height="8" Fill="#EF4444" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBlock Text="Lỗi:" Foreground="#6B7280" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lbAccountDie" Foreground="#EF4444" Text="0" FontWeight="SemiBold" Margin="4,0,0,0" VerticalAlignment="Center" Width="Auto"/>
+                            </StackPanel>
+
+                            <!-- Đang chờ -->
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Ellipse Width="8" Height="8" Fill="#EAB308" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBlock Text="Đang chờ:" Foreground="#6B7280" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="lbAccountWarn" Text="0" Foreground="#EAB308" FontWeight="SemiBold" Margin="4,0,0,0" VerticalAlignment="Center" Width="Auto"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- RichTextBox for Additional Info -->
+                        <Border Grid.Row="1" Background="{StaticResource CardBg}" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="4" Margin="0,0,0,5" Padding="5">
+                            <RichTextBox x:Name="rtbAdditionalInfo" Style="{StaticResource CustomRichTextBoxStyle}" 
+                                         VerticalAlignment="Stretch" 
+                                         materialDesign:HintAssist.Hint="Enter additional information here..."
+                                         materialDesign:HintAssist.IsFloating="True"/>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="{StaticResource CardBg}" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="10" Margin="10,0,10,10" Padding="10" Height="50" VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnExit" Content="Exit" Style="{StaticResource ActionButtonStyle}" Background="{StaticResource RedAccent}" 
+                        Margin="0,0,10,0" Width="100" Click="btnExit_Click"/>
+                <Button x:Name="btnAdd" Content="Add" Style="{StaticResource ActionButtonStyle}" Background="{StaticResource GreenAccent}" 
+                        Width="100" Click="btnAdd_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

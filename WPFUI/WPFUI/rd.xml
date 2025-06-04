@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Directives>
+	<Application>
+
+		<!-- Bắt buộc cho WPF hoạt động đúng khi bị trim -->
+		<Assembly Name="System.Xaml" Dynamic="Required All" />
+		<Assembly Name="PresentationFramework" Dynamic="Required All" />
+		<Assembly Name="PresentationCore" Dynamic="Required All" />
+		<Assembly Name="WindowsBase" Dynamic="Required All" />
+
+		<!-- Nếu dùng System.Text.Json -->
+		<Assembly Name="System.Text.Json" Dynamic="Required All" />
+
+		<!-- Nếu dùng Newtonsoft.Json -->
+		<Assembly Name="Newtonsoft.Json" Dynamic="Required All" />
+
+		<!-- COM/Interop thường gặp trong WPF -->
+		<Assembly Name="System.Runtime.InteropServices" Dynamic="Required All" />
+		<Assembly Name="System.Runtime.InteropServices.ComTypes" Dynamic="Required All" />
+		<Assembly Name="Microsoft.Windows.Compatibility" Dynamic="Required All" />
+
+		<!-- Reflection, MEF, hoặc serializer dùng Activator.CreateInstance -->
+		<Assembly Name="System.Reflection" Dynamic="Required All" />
+		<Assembly Name="System.Reflection.Emit" Dynamic="Required All" />
+		<Assembly Name="System.Reflection.Emit.ILGeneration" Dynamic="Required All" />
+		<Assembly Name="System.Reflection.Emit.Lightweight" Dynamic="Required All" />
+
+		<!-- Thêm thư viện khác nếu bạn đang dùng, ví dụ MahApps, CommunityToolkit,... -->
+		<!-- <Assembly Name="MahApps.Metro" Dynamic="Required All" /> -->
+
+		<linker>
+			<assembly fullname="PresentationFramework">
+				<type fullname="System.Windows.Controls.Menu" dynamic="Required All" />
+				<type fullname="System.Windows.Controls.MenuItem" dynamic="Required All" />
+				<type fullname="System.Windows.Data.Binding" dynamic="Required All" />
+				<type fullname="System.Windows.Controls.ContentPresenter" dynamic="Required All" />
+				<type fullname="System.Windows.ResourceDictionary" dynamic="Required All" />
+				<type fullname="System.Windows.*" dynamic="Required All" />
+				<type fullname="System.Windows.Controls.*" dynamic="Required All" />
+				<type fullname="System.Windows.Data.*" dynamic="Required All" />
+			</assembly>
+
+			<!-- MaterialDesignThemes -->
+			<assembly fullname="MaterialDesignThemes.Wpf">
+				<type fullname="MaterialDesignThemes.Wpf.*" dynamic="Required All" />
+			</assembly>
+
+			<assembly fullname="MaterialDesignColors" preserve="all" />
+		
+			<!-- MahApps.Metro nếu có -->
+			<assembly fullname="MahApps.Metro" preserve="all" />
+		</linker>
+
+	</Application>
+</Directives>

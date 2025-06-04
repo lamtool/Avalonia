@@ -1,0 +1,190 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="using:AvaloniaUI"
+        xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        mc:Ignorable="d"
+        x:Class="AvaloniaUI.Views.MainWindow" Title="LamTool.net - Avalonia"
+        Height="800" Width="1620"
+        Background="#F3F4F6"
+        WindowStartupLocation="CenterScreen"
+        Icon="avares://AvaloniaUI/Assets/avalonia-logo.ico">
+
+	<Window.Resources>
+		<SolidColorBrush x:Key="CustomBg" Color="#F3F4F6"/>
+		<SolidColorBrush x:Key="CardBg" Color="#FFFFFF"/>
+		<SolidColorBrush x:Key="PrimaryBlue" Color="#3B82F6"/>
+		<SolidColorBrush x:Key="DarkText" Color="#1F2937"/>
+		<SolidColorBrush x:Key="LightText" Color="#6B7280"/>
+		<SolidColorBrush x:Key="BorderColor" Color="#E5E7EB"/>
+		<SolidColorBrush x:Key="GreenAccent" Color="#10B981"/>
+		<SolidColorBrush x:Key="RedAccent" Color="#EF4444"/>
+		<FontFamily x:Key="QuicksandFont">avares://AvaloniaUI/Assets/Fonts/Quicksand.ttf#Quicksand</FontFamily>
+
+		<Style x:Key="ActionButtonStyle" Selector="Button">
+			<Setter Property="Background" Value="{StaticResource PrimaryBlue}"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Padding" Value="8,4"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="CornerRadius" Value="4"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Template">
+				<ControlTemplate TargetType="Button">
+					<Border Background="{TemplateBinding Background}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+						<ContentPresenter Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"/>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<ControlTemplate x:Key="DashboardMenuItemHeader_Alternative">
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+				<materialIcons:MaterialIcon Kind="ViewDashboard" Width="20" Height="20" Margin="0,0,8,0"/>
+				<TextBlock Text="Dashboard" VerticalAlignment="Center" FontFamily="{StaticResource QuicksandFont}"/>
+			</StackPanel>
+		</ControlTemplate>
+		<ControlTemplate x:Key="ThietBiMenuItemHeader_Alternative">
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+				<materialIcons:MaterialIcon Kind="Cellphone" Width="20" Height="20" Margin="0,0,8,0"/>
+				<TextBlock Text="Thiết Bị" VerticalAlignment="Center" FontFamily="{StaticResource QuicksandFont}"/>
+			</StackPanel>
+		</ControlTemplate>
+	</Window.Resources>
+
+	<Window.Styles>
+		<Style Selector="Button:pointerover">
+			<Setter Property="Background" Value="#2563EB"/>
+		</Style>
+		<Style Selector="Button:pressed">
+			<Setter Property="Background" Value="#1D4ED8"/>
+		</Style>
+
+		<Style Selector="Menu > MenuItem">
+			<Setter Property="FontFamily" Value="{StaticResource QuicksandFont}"/>
+			<Setter Property="Foreground" Value="#6B7280"/>
+			<Setter Property="Padding" Value="10"/>
+			<Setter Property="FontSize" Value="15"/>
+			<Setter Property="Template">
+				<ControlTemplate TargetType="MenuItem">
+					<Border Name="templateRoot"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+						<ContentPresenter Name="PART_HeaderPresenter"
+                                          Content="{TemplateBinding Header}"
+                                          HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Center"/>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+		<Style Selector="Menu > MenuItem:pointerover">
+			<Setter Property="Background" Value="#DBEAFE"/>
+			<Setter Property="Foreground" Value="#3B82F6"/>
+		</Style>
+		<Style Selector="Menu > MenuItem:selected">
+			<Setter Property="Background" Value="#DBEAFE"/>
+			<Setter Property="Foreground" Value="#3B82F6"/>
+		</Style>
+	</Window.Styles>
+
+	<Grid ColumnDefinitions="256,*">
+		<Border Grid.Column="0" Background="{StaticResource CardBg}" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,1,0">
+			<StackPanel>
+				<Border BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,0,1" Padding="20">
+					<TextBlock Text="LamTool.net" FontSize="24" FontWeight="Bold" Foreground="#2D6A4F" FontFamily="{StaticResource QuicksandFont}"/>
+				</Border>
+				<Menu Background="Transparent" Margin="0,16,0,0" Width="251" Height="400">
+					<Menu.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Vertical"/>
+						</ItemsPanelTemplate>
+					</Menu.ItemsPanel>
+					<MenuItem Click="MenuItem_Dashboard_Click">
+						<MenuItem.Header>
+							<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+								<materialIcons:MaterialIcon Kind="ViewDashboard" Width="20" Height="20" Margin="0,0,8,0"/>
+								<TextBlock Text="Dashboard" VerticalAlignment="Center" FontFamily="{StaticResource QuicksandFont}"/>
+							</StackPanel>
+						</MenuItem.Header>
+					</MenuItem>
+					<MenuItem Click="MenuItem_Dashboard_Click">
+						<MenuItem.Header>
+							<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+								<materialIcons:MaterialIcon Kind="Cellphone" Width="20" Height="20" Margin="0,0,8,0"/>
+								<TextBlock Text="Thiết Bị" VerticalAlignment="Center" FontFamily="{StaticResource QuicksandFont}"/>
+							</StackPanel>
+						</MenuItem.Header>
+					</MenuItem>
+					<MenuItem Click="MenuItem_TaiKhoan_Click">
+						<MenuItem.Header>
+							<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+								<materialIcons:MaterialIcon Kind="AccountCircle" Width="20" Height="20" Margin="0,0,8,0"/>
+								<TextBlock Text="Tài Khoản" VerticalAlignment="Center" FontFamily="{StaticResource QuicksandFont}"/>
+							</StackPanel>
+						</MenuItem.Header>
+					</MenuItem>
+					<MenuItem Click="MenuItem_NhomTaiKhoan_Click">
+						<MenuItem.Header>
+							<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+								<materialIcons:MaterialIcon Kind="AccountGroup" Width="20" Height="20" Margin="0,0,8,0"/>
+								<TextBlock Text="Nhóm TK" VerticalAlignment="Center" FontFamily="{StaticResource QuicksandFont}"/>
+							</StackPanel>
+						</MenuItem.Header>
+					</MenuItem>
+					<MenuItem Click="MenuItem_Settings_Click">
+						<MenuItem.Header>
+							<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+								<materialIcons:MaterialIcon Kind="Cog" Width="20" Height="20" Margin="0,0,8,0"/>
+								<TextBlock Text="Cài Đặt" VerticalAlignment="Center" FontFamily="{StaticResource QuicksandFont}"/>
+							</StackPanel>
+						</MenuItem.Header>
+					</MenuItem>
+					<MenuItem Click="MenuItem_TaiKhoan_Click">
+						<MenuItem.Header>
+							<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+								<materialIcons:MaterialIcon Kind="Help" Width="20" Height="20" Margin="0,0,8,0"/>
+								<TextBlock Text="Hỗ Trợ" VerticalAlignment="Center" FontFamily="{StaticResource QuicksandFont}"/>
+							</StackPanel>
+						</MenuItem.Header>
+					</MenuItem>
+				</Menu>
+			</StackPanel>
+		</Border>
+
+		<Grid Grid.Column="1" RowDefinitions="Auto,*,Auto">
+			<Border Grid.Row="0" Background="{StaticResource CardBg}" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,0,1" Padding="24">
+				<Grid ColumnDefinitions="*,Auto">
+					<TextBlock Grid.Column="0" Text="Quản lý tài khoản Facebook" FontSize="20" FontWeight="SemiBold" Foreground="#2D6A4F" FontFamily="{StaticResource QuicksandFont}"/>
+				</Grid>
+			</Border>
+			<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0">
+				<ContentControl x:Name="MainContent" />
+			</ScrollViewer>
+			<Border Grid.Row="2" Background="{StaticResource CardBg}" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,1,0,0" Padding="12">
+				<Grid ColumnDefinitions="*,Auto">
+					<StackPanel Grid.Column="0" Orientation="Horizontal">
+						<TextBlock Text="Mã máy: XYZ123" Foreground="{StaticResource PrimaryBlue}" Margin="0,0,24,0" FontFamily="{StaticResource QuicksandFont}"/>
+						<TextBlock Text="Hạn dùng: 30/06/2024" Foreground="{StaticResource PrimaryBlue}" FontFamily="{StaticResource QuicksandFont}"/>
+					</StackPanel>
+					<StackPanel Grid.Column="1" Orientation="Horizontal">
+						<TextBlock Text="Job: 120" Foreground="{StaticResource PrimaryBlue}" Margin="0,0,24,0" FontFamily="{StaticResource QuicksandFont}"/>
+						<TextBlock Text="Thành công: 100" Foreground="{StaticResource GreenAccent}" Margin="0,0,24,0" FontFamily="{StaticResource QuicksandFont}"/>
+						<TextBlock Text="Thất bại: 20" Foreground="{StaticResource RedAccent}" Margin="0,0,24,0" FontFamily="{StaticResource QuicksandFont}"/>
+						<TextBlock Text="Luồng: 5/10" Foreground="{StaticResource PrimaryBlue}" FontFamily="{StaticResource QuicksandFont}"/>
+					</StackPanel>
+				</Grid>
+			</Border>
+		</Grid>
+	</Grid>
+</Window>
